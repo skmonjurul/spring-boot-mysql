@@ -1,0 +1,10 @@
+HELP.md
+.gradle
+.idea
+build/
+*.iws
+*.iml
+*.ipr
+out/
+
+
