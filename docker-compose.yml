@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_USER: 'test'
+      MYSQL_PASSWORD: 'test'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+    - '3306:3306'
+    expose:
+      - "3306"
+    volumes:
+    - mysql-db:/var/lib/mysql
+    networks:
+      - backend
+
+  spring-boot-mysql:
+    build: .
+    image: 'springio/spring-boot-mysql:latest'
+#    restart: on-failure
+    ports:
+    - '8080:8080'
+    expose:
+      - "8080"
+    environment:
+      MYSQL_HOST: mysql
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+volumes:
+  mysql-db:
+networks:
+  backend:
